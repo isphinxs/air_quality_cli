@@ -13,10 +13,10 @@ class AirQuality::AirQuality
     #     save
     # end
 
-    def initialize(name, aqi_value, main_pollutant)
+    def initialize(name) #, aqi_value, main_pollutant)
         @name = name # city
-        @aqi_value = aqi_value
-        @main_pollutant = main_pollutant
+        # @aqi_value = aqi_value
+        # @main_pollutant = main_pollutant
         save
     end
 
@@ -28,4 +28,9 @@ class AirQuality::AirQuality
         @@all
     end
 
+    def add_data(aqi_value, main_pollutant)
+        @aqi_value = aqi_value
+        @main_pollutant = main_pollutant
+    end
+    
 end
