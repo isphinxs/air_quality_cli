@@ -1,12 +1,12 @@
 class AirQuality::State
-    attr_accessor :state
-    attr_reader :city
+    attr_accessor :state_name
+    attr_reader :cities
     
     @@all = []
     
     def initialize(state)
-        @state = state
-        @city = []
+        @state_name = state
+        @cities = []
         save
     end
 
@@ -19,6 +19,6 @@ class AirQuality::State
     end
 
     def add_city(city)
-        self.city << city
+        self.cities << city
     end
 end

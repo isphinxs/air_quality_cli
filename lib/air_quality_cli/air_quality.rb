@@ -13,10 +13,10 @@ class AirQuality::AirQuality
     #     save
     # end
 
-    def initialize(name) #, aqi_value, main_pollutant)
+    def initialize(name, state)
         @name = name # city
-        # @aqi_value = aqi_value
-        # @main_pollutant = main_pollutant
+        @state = state
+        @country = "United States"
         save
     end
 
@@ -32,5 +32,8 @@ class AirQuality::AirQuality
         @aqi_value = aqi_value
         @main_pollutant = main_pollutant
     end
-    
+
+    def find_state
+        AirQuality::State.select {|state| state.cities.include?(self)}
+    end
 end

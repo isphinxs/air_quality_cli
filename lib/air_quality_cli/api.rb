@@ -6,7 +6,7 @@ class AirQuality::API
         city_array = JSON.parse(response)["data"]
         state = AirQuality::State.new(state) # temporary
         city_array.each do |city|
-            new_city = AirQuality::AirQuality.new(city)
+            new_city = AirQuality::AirQuality.new(city["city"], state)
             state.add_city(new_city)
         end
     end
