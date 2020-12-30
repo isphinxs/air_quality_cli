@@ -1,5 +1,8 @@
 class AirQuality::State
-    attr_accessor :state, :city
+    attr_accessor :state
+    attr_reader :city
+    
+    @@all = []
     
     def initialize(state)
         @state = state
@@ -14,4 +17,7 @@ class AirQuality::State
         @@all
     end
 
+    def add_city(city)
+        @city = city
+    end
 end
