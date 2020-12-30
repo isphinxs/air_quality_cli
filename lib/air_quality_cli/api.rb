@@ -1,10 +1,10 @@
 class AirQuality::API
-    def self.get_city
+    def self.get_city(state)
         key = ENV["AQI_API_KEY"]
-        url = "http://api.airvisual.com/v2/cities?state=New%20York&country=USA&key=" + key
+        url = "http://api.airvisual.com/v2/cities?state=" + state + "&country=USA&key=" + key
         response = RestClient.get(url)
-        response_array = JSON.parse(response)["data"]
-        response_array.each do |city|
+        city_array = JSON.parse(response)["data"]
+        city_array.each do |city|
             puts city["city"]
         end
         # binding.pry
