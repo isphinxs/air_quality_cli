@@ -12,7 +12,7 @@ class AirQuality::API
         state
     end
 
-    def self.get_data(city)
+    def self.get_city_air_quality(city)
         key = ENV["AQI_API_KEY"]
 
         city_object = AirQuality::City.find_city(city) # temporary
