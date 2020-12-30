@@ -1,4 +1,4 @@
-class AirQuality::AirQuality
+class AirQuality::City
     # attr_accessor :state, :city, :station, :data
     attr_accessor :name, :state, :aqi_value, :main_pollutant
     attr_reader :country
