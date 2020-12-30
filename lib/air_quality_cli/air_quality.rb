@@ -1,6 +1,6 @@
 class AirQuality::AirQuality
     # attr_accessor :state, :city, :station, :data
-    attr_accessor :state, :city, :aqi_value, :main_pollutant
+    attr_accessor :name, :state, :aqi_value, :main_pollutant
     attr_reader :country
     
     @@all = []
@@ -13,7 +13,8 @@ class AirQuality::AirQuality
     #     save
     # end
 
-    def initialize(aqi_value, main_pollutant)
+    def initialize(name, aqi_value, main_pollutant)
+        @name = name # city
         @aqi_value = aqi_value
         @main_pollutant = main_pollutant
         save

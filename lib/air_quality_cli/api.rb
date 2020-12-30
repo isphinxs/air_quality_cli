@@ -18,7 +18,7 @@ class AirQuality::API
         aqi_value = response_hash["aqius"]
         main_pollutant = response_hash["mainus"]
 
-        AirQuality::AirQuality.new(aqi_value, main_pollutant)
+        AirQuality::AirQuality.new(city, aqi_value, main_pollutant)
         # response_array.each do |city|
         #     puts city["city"]
         # end
