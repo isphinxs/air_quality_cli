@@ -6,6 +6,7 @@ class AirQuality::State
     
     def initialize(state)
         @state = state
+        @city = []
         save
     end
 
@@ -18,6 +19,6 @@ class AirQuality::State
     end
 
     def add_city(city)
-        @city = city
+        self.city << city
     end
 end

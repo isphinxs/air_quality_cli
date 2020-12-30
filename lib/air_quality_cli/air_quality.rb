@@ -1,6 +1,6 @@
 class AirQuality::AirQuality
     # attr_accessor :state, :city, :station, :data
-    attr_accessor :aqi_value, :main_pollutant
+    attr_accessor :state, :city, :aqi_value, :main_pollutant
     attr_reader :country
     
     @@all = []
