@@ -33,7 +33,7 @@ class AirQuality::AirQuality
         @main_pollutant = main_pollutant
     end
 
-    def find_state
-        AirQuality::State.select {|state| state.cities.include?(self)}
+    def self.find_city(name)
+        self.all.detect {|city| city.name == name}
     end
 end
