@@ -16,7 +16,7 @@ class AirQuality::City
     def initialize(name, state)
         @name = name # city
         @state = state
-        @country = "United States"
+        @country = "USA"
         save
     end
 
@@ -36,4 +36,9 @@ class AirQuality::City
     def self.find_city(name)
         self.all.detect {|city| city.name == name}
     end
+
+    def self.find_cities_by_state(state)
+        self.all.select {|city| city.state.state_name == state}
+    end
+    
 end

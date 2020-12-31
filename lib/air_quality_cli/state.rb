@@ -18,6 +18,10 @@ class AirQuality::State
         @@all
     end
 
+    def self.find_state(state)
+        self.all.detect {|state_object| state_object.state_name == state}
+    end
+    
     # def add_city(city)
     #     self.cities << city
     # end
