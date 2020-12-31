@@ -40,5 +40,9 @@ class AirQuality::City
     def self.find_cities_by_state(state)
         self.all.select {|city| city.state.state_name == state}
     end
-    
+
+    def self.city_valid?(city)
+        self.find_city(city) ? true : false
+    end
+
 end
