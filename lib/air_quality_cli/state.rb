@@ -21,6 +21,10 @@ class AirQuality::State
     def self.find_state(state)
         self.all.detect {|state_object| state_object.state_name == state}
     end
+
+    def self.state_valid?(state)
+        self.find_state(state) ? true : false
+    end
     
     # def add_city(city)
     #     self.cities << city
