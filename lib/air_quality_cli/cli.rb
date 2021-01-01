@@ -17,6 +17,9 @@ class AirQuality::CLI
         else
             input
         end
+
+        # need to check for nonsensical answers 
+
     end
 
     def start
@@ -46,6 +49,25 @@ class AirQuality::CLI
         puts "Cool, pulling up the cities in #{input}."
         puts ""
         AirQuality::API.get_cities(input)
+        pull_city(input)
+
+        # puts "Which city are you looking for? Choose from the following:"
+        # puts ""
+        # AirQuality::City.find_cities_by_state(input).each do |city|
+        #     puts city.name
+        # end
+        # puts ""
+        
+        # input = user_input
+        # while !check_city(input)
+        #     input = user_input
+        # end
+        # puts ""
+        
+        # print_air_quality(input)
+    end
+
+    def pull_city(input)
         puts "Which city are you looking for? Choose from the following:"
         puts ""
         AirQuality::City.find_cities_by_state(input).each do |city|
@@ -78,8 +100,8 @@ class AirQuality::CLI
 
     def check_city(input)
         if AirQuality::City.city_valid?(input)
-            puts ""
-            puts "Great, pulling air quality data for #{input}."
+            # puts ""
+            # puts "Great, pulling air quality data for #{input}."
             true
         else
             puts ""
@@ -94,21 +116,36 @@ class AirQuality::CLI
         city_object = AirQuality::API.get_city_air_quality(input)
         pollutant = main_pollutant(city_object)
         pollution_level = pollution_level(city_object)
-        value = pollution_level[0]
-        concern_level = pollution_level[1]
-        detail = pollution_level[2]
 
-        puts ""
-        puts "Awesome! Here is the air quality data for #{input}:"
-        puts ""
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        puts "The main pollutant is #{pollutant}."
-        puts "The pollution level is #{value}."
-        puts "This level is considered #{concern_level}."
-        puts "#{detail}"
-        puts "You can read more about air pollution at https://www.airnow.gov/."
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        puts ""
+        if pollutant
+            value = pollution_level[0]
+            concern_level = pollution_level[1]
+            detail = pollution_level[2]
+
+            # puts ""
+            puts "Awesome! Here is the air quality data for #{input}:"
+            puts ""
+            puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            puts "The main pollutant is #{pollutant}."
+            puts "The pollution level is #{value}."
+            puts "This level is considered #{concern_level}."
+            puts "#{detail}"
+            puts "You can read more about air pollution at https://www.airnow.gov/."
+            puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            puts ""
+        else
+            puts "I'm sorry, data isn't available for that city!"
+            puts "Please choose another city."
+            puts ""
+
+            input = user_input
+            while !check_city(input)
+                input = user_input
+            end
+            puts ""
+            
+            print_air_quality(input)
+        end
     end
 
     def main_pollutant(city_object)

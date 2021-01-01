@@ -31,10 +31,17 @@ class AirQuality::API
         state = city_object.state.state_name # temporary
         
         url = "http://api.airvisual.com/v2/city?city=" + city + "&state=" + state + "&country=USA&key=" + key
-        response = RestClient.get(url)
-        response_hash = JSON.parse(response)["data"]["current"]["pollution"]
-        aqi_value = response_hash["aqius"]
-        main_pollutant = response_hash["mainus"]
+        
+        begin 
+          response = RestClient.get(url)
+        rescue
+            aqi_value = nil
+            main_pollutant = nil
+        else
+            response_hash = JSON.parse(response)["data"]["current"]["pollution"]
+            aqi_value = response_hash["aqius"]
+            main_pollutant = response_hash["mainus"]
+        end
 
         # AirQuality::AirQuality.new(city, aqi_value, main_pollutant)
         
