@@ -1,20 +1,11 @@
 class AirQuality::City
-    # attr_accessor :state, :city, :station, :data
     attr_accessor :name, :state, :aqi_value, :main_pollutant
     attr_reader :country
     
     @@all = []
 
-    # def initialize(state, city, station)
-    #     @country = "United States"
-    #     @state = state
-    #     @city = city
-    #     @station = station
-    #     save
-    # end
-
     def initialize(name, state)
-        @name = name # city
+        @name = name 
         @state = state
         @country = "USA"
         save

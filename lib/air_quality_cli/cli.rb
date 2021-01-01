@@ -25,11 +25,6 @@ class AirQuality::CLI
         puts "Would you like to check another city or state?"
         puts ""
         input = user_input
-        # while input.downcase == "yes" || input.downcase == "y"
-        #     puts ""
-        #     # pull_data
-        #     start
-        # end
 
         until input.downcase == "yes" || input.downcase == "y"
             puts ""
@@ -39,7 +34,6 @@ class AirQuality::CLI
         end
         puts ""
         start
-
     end
 
     def pull_data
@@ -57,21 +51,6 @@ class AirQuality::CLI
         puts ""
         AirQuality::API.get_cities(input)
         pull_city(input)
-
-        # puts "Which city are you looking for? Choose from the following:"
-        # puts ""
-        # AirQuality::City.find_cities_by_state(input).each do |city|
-        #     puts city.name
-        # end
-        # puts ""
-        
-        # input = user_input
-        # while !check_city(input)
-        #     input = user_input
-        # end
-        # puts ""
-        
-        # print_air_quality(input)
     end
 
     def pull_city(input)
@@ -93,8 +72,6 @@ class AirQuality::CLI
 
     def check_state(input)
         if AirQuality::State.state_valid?(input)
-            # puts ""
-            # puts "Checking for Cities, hold tight!"
             true
         else 
             puts ""
@@ -107,8 +84,6 @@ class AirQuality::CLI
 
     def check_city(input)
         if AirQuality::City.city_valid?(input)
-            # puts ""
-            # puts "Great, pulling air quality data for #{input}."
             true
         else
             puts ""
@@ -129,7 +104,6 @@ class AirQuality::CLI
             concern_level = pollution_level[1]
             detail = pollution_level[2]
 
-            # puts ""
             puts "Awesome! Here is the air quality data for #{input}:"
             puts ""
             puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"

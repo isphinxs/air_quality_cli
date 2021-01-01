@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-# require "bundler/setup"
-# require "air_quality_cli"
 require_relative "../lib/environment.rb"
 puts "in environment"
 

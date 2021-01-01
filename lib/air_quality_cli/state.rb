@@ -1,12 +1,10 @@
 class AirQuality::State
     attr_accessor :state_name
-    # attr_reader :cities
     
     @@all = []
     
     def initialize(state)
         @state_name = state
-        # @cities = []
         save
     end
 
@@ -25,8 +23,4 @@ class AirQuality::State
     def self.state_valid?(state)
         self.find_state(state) ? true : false
     end
-    
-    # def add_city(city)
-    #     self.cities << city
-    # end
 end

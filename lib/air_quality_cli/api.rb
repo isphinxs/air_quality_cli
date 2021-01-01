@@ -15,11 +15,9 @@ class AirQuality::API
         url = "http://api.airvisual.com/v2/cities?state=" + state + "&country=USA&key=" + key
         response = RestClient.get(url)
         city_array = JSON.parse(response)["data"]
-        # state = AirQuality::State.new(state) # temporary
         state_object = AirQuality::State.find_state(state)
         city_array.each do |city|
             new_city = AirQuality::City.new(city["city"], state_object)
-            # state.add_city(new_city)
         end
         state_object
     end
@@ -27,8 +25,8 @@ class AirQuality::API
     def self.get_city_air_quality(city)
         key = ENV["AQI_API_KEY"]
 
-        city_object = AirQuality::City.find_city(city) # temporary
-        state = city_object.state.state_name # temporary
+        city_object = AirQuality::City.find_city(city) 
+        state = city_object.state.state_name 
         
         url = "http://api.airvisual.com/v2/city?city=" + city + "&state=" + state + "&country=USA&key=" + key
         
@@ -42,15 +40,9 @@ class AirQuality::API
             aqi_value = response_hash["aqius"]
             main_pollutant = response_hash["mainus"]
         end
-
-        # AirQuality::AirQuality.new(city, aqi_value, main_pollutant)
         
         city_object.add_data(aqi_value, main_pollutant)
         city_object
-        # response_array.each do |city|
-        #     puts city["city"]
-        # end
-        # binding.pry
     end
 
 end
