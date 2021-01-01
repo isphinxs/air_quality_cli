@@ -46,10 +46,12 @@ class AirQuality::CLI
             input = user_input
         end
         puts ""
-
-        puts "Cool, pulling up the cities in #{input}."
-        puts ""
-        AirQuality::API.get_cities(input)
+        
+        if AirQuality::State.find_state(input).cities.length < 1
+            puts "Cool, pulling up the cities in #{input}."
+            puts ""
+            AirQuality::API.get_cities(input)
+        end
         pull_city(input)
     end
 
