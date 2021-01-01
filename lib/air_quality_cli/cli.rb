@@ -1,7 +1,7 @@
 class AirQuality::CLI
     def call
         puts ""
-        puts "Welcome to the Air Quality CLI application!"
+        puts Rainbow("Welcome to the Air Quality CLI application!").bright
         puts ""
         AirQuality::API.get_states
         start
@@ -52,16 +52,22 @@ class AirQuality::CLI
             puts ""
             AirQuality::API.get_cities(input)
         end
-        pull_city(input)
+        print_cities(input)
     end
 
-    def pull_city(input)
+    def print_cities(input)
         AirQuality::City.clear_current_cities
         puts "Which city are you looking for? Choose from the following:"
         puts ""
         counter = 1
         AirQuality::City.find_cities_by_state(input).each do |city|
-            puts "#{counter}. #{city.name}"
+            # color = counter % 2 == 0 ? :ghostwhite : :cyan
+            # puts Rainbow("#{counter}. #{city.name}").color(color)
+            if counter % 2 == 0
+                puts Rainbow("#{counter}. #{city.name}").inverse 
+            else 
+                puts "#{counter}. #{city.name}"
+            end
             AirQuality::City.current_city_list << city.name
             counter += 1
         end
