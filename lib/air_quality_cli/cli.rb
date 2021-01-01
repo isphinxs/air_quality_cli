@@ -17,9 +17,6 @@ class AirQuality::CLI
         else
             input
         end
-
-        # need to check for nonsensical answers 
-
     end
 
     def start
@@ -28,11 +25,21 @@ class AirQuality::CLI
         puts "Would you like to check another city or state?"
         puts ""
         input = user_input
-        while input.downcase == "yes" || input.downcase == "y"
+        # while input.downcase == "yes" || input.downcase == "y"
+        #     puts ""
+        #     # pull_data
+        #     start
+        # end
+
+        until input.downcase == "yes" || input.downcase == "y"
             puts ""
-            # pull_data
-            start
+            puts "I'm sorry, I don't understand. Type yes, no, or exit."
+            puts ""
+            input = user_input
         end
+        puts ""
+        start
+
     end
 
     def pull_data
