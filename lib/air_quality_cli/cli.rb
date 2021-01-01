@@ -15,7 +15,7 @@ class AirQuality::CLI
             puts ""
             exit
         else
-            input
+            AirQuality::State.check_abbreviation(input)
         end
     end
 
@@ -76,7 +76,7 @@ class AirQuality::CLI
         else 
             puts ""
             puts "I don't recognize that state... Please try again."
-            puts "States should be written out (e.g., New York) not abbreviated (e.g., NY)."
+            puts "States should be written out (e.g., New York) or abbreviated (e.g., NY)."
             puts ""
             false
         end
