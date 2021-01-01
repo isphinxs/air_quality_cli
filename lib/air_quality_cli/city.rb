@@ -3,11 +3,13 @@ class AirQuality::City
     attr_reader :country
     
     @@all = []
+    @@current_city_list = []
 
     def initialize(name, state)
         @name = name 
         @state = state
         @country = "USA"
+        state.cities << self
         save
     end
 
@@ -25,6 +27,7 @@ class AirQuality::City
     end
 
     def self.find_city(name)
+        name = self.city_by_number(name)
         self.all.detect {|city| city.name == name}
     end
 
@@ -36,4 +39,18 @@ class AirQuality::City
         self.find_city(city) ? true : false
     end
 
+    def self.current_city_list
+        @@current_city_list
+    end
+
+    def self.clear_current_cities
+        @@current_city_list.clear
+    end
+
+    def self.city_by_number(number)
+        if number.to_i > 0
+            number = self.current_city_list[number.to_i - 1]
+        end
+        number
+    end
 end

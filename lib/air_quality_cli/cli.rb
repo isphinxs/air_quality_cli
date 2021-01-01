@@ -54,10 +54,14 @@ class AirQuality::CLI
     end
 
     def pull_city(input)
+        AirQuality::City.clear_current_cities
         puts "Which city are you looking for? Choose from the following:"
         puts ""
+        counter = 1
         AirQuality::City.find_cities_by_state(input).each do |city|
-            puts city.name
+            puts "#{counter}. #{city.name}"
+            AirQuality::City.current_city_list << city.name
+            counter += 1
         end
         puts ""
         
@@ -65,6 +69,7 @@ class AirQuality::CLI
         while !check_city(input)
             input = user_input
         end
+        input = AirQuality::City.city_by_number(input)
         puts ""
         
         print_air_quality(input)
@@ -163,4 +168,5 @@ class AirQuality::CLI
             [level, "hazardous", "Health warning of emergency conditions: everyone is more likely to be affected."]
         end
     end
+
 end

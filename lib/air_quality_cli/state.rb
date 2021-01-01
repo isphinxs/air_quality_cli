@@ -1,10 +1,12 @@
 class AirQuality::State
     attr_accessor :state_name
+    attr_reader :cities
     
     @@all = []
     
     def initialize(state)
         @state_name = state
+        @cities = []
         save
     end
 
