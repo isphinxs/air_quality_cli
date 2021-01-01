@@ -46,7 +46,7 @@ class AirQuality::CLI
             input = user_input
         end
         puts ""
-        
+
         if AirQuality::State.find_state(input).cities.length < 1
             puts "Cool, pulling up the cities in #{input}."
             puts ""
@@ -110,16 +110,17 @@ class AirQuality::CLI
             value = pollution_level[0]
             concern_level = pollution_level[1]
             detail = pollution_level[2]
+            color = pollution_level[3].to_sym
 
             puts "Awesome! Here is the air quality data for #{input}:"
             puts ""
-            puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            puts "The main pollutant is #{pollutant}."
-            puts "The pollution level is #{value}."
-            puts "This level is considered #{concern_level}."
-            puts "#{detail}"
-            puts "You can read more about air pollution at https://www.airnow.gov/."
-            puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            puts Rainbow("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~").color(color)
+            puts Rainbow("The main pollutant is #{pollutant}.").color(color)
+            puts Rainbow("The pollution level is #{value}.").color(color)
+            puts Rainbow("This level is considered #{concern_level}.").color(color)
+            puts Rainbow("#{detail}").color(color)
+            puts Rainbow("You can read more about air pollution at https://www.airnow.gov/.").color(color)
+            puts Rainbow("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~").color(color)
             puts ""
         else
             puts "I'm sorry, data isn't available for that city!"
@@ -157,17 +158,17 @@ class AirQuality::CLI
         level = city_object.aqi_value.to_i
         case level
         when 0..50
-            [level, "good", "Air quality is satisfactory, and air pollution poses little or no risk."]
+            [level, "good", "Air quality is satisfactory, and air pollution poses little or no risk.", "green"]
         when 51..100
-            [level, "moderate", "Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution."]
+            [level, "moderate", "Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.", "yellow"]
         when 101..150
-            [level, "unhealthy for Sensitive Groups", "Members of sensitive groups may experience health effects. The general public is less likely to be affected."]
+            [level, "unhealthy for Sensitive Groups", "Members of sensitive groups may experience health effects. The general public is less likely to be affected.", "orange"]
         when 151..200
-            [level, "unhealthy", "Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects."]
+            [level, "unhealthy", "Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects.", "red"]
         when 201..300
-            [level, "very Unhealthy", "Health alert: The risk of health effects is increased for everyone."]
+            [level, "very Unhealthy", "Health alert: The risk of health effects is increased for everyone.", "purple"]
         else
-            [level, "hazardous", "Health warning of emergency conditions: everyone is more likely to be affected."]
+            [level, "hazardous", "Health warning of emergency conditions: everyone is more likely to be affected.", "maroon"]
         end
     end
 

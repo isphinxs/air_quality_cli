@@ -84,6 +84,6 @@ class AirQuality::State
             "WV" => "West Virginia",
             "WY" => "Wyoming"
         }
-        states[state] ? states[state] : state
+        states[state.upcase] ? states[state.upcase] : state
     end
 end

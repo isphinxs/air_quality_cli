@@ -18,6 +18,7 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    rainbow (3.0.0)
     rake (12.3.3)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -48,6 +49,7 @@ DEPENDENCIES
   dotenv
   json
   pry
+  rainbow
   rake (~> 12.0)
   rest-client
   rspec (~> 3.0)
