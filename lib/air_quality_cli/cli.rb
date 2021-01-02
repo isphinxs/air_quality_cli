@@ -3,7 +3,6 @@ class AirQuality::CLI
         puts ""
         puts Rainbow("Welcome to the Air Quality CLI application!").bright
         puts ""
-        AirQuality::API.get_states
         start
     end
 
@@ -43,6 +42,12 @@ class AirQuality::CLI
     end
 
     def start
+        if AirQuality::State.all.length < 1
+            if AirQuality::API.get_states == "Error"
+                handle_error
+            end
+        end
+
         pull_data
 
         puts "Would you like to check another city or state?"
@@ -73,7 +78,9 @@ class AirQuality::CLI
         if AirQuality::State.find_state(input).cities.length < 1
             puts "Cool, pulling up the cities in #{input}."
             puts ""
-            AirQuality::API.get_cities(input)
+            if AirQuality::API.get_cities(input) == "Error"
+                handle_error
+            end
         end
         print_cities(input)
     end
@@ -197,6 +204,22 @@ class AirQuality::CLI
         else
             [level, "hazardous", "Health warning of emergency conditions: everyone is more likely to be affected.", "maroon"]
         end
+    end
+
+    def handle_error
+        puts "Hmm, there seems to be an issue with the API. Do you want to try again?"
+        puts "" 
+        input = user_input
+        puts ""
+
+        until input.downcase == "yes" || input.downcase == "y"
+            puts ""
+            puts "I'm sorry, I don't understand. Type yes or no."
+            puts "You can also type 'exit' to exit or 'help' for more info."
+            puts ""
+            input = user_input
+        end
+        start
     end
 
 end
