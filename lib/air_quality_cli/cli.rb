@@ -80,7 +80,7 @@ class AirQuality::CLI
 
     def print_cities(input)
         AirQuality::City.clear_current_cities
-        puts "Which city are you looking for? Choose from the following:"
+        puts "Which city are you looking for? Choose from the following (enter a number or city name):"
         puts ""
         counter = 1
         AirQuality::City.find_cities_by_state(input).each do |city|
