@@ -14,6 +14,29 @@ class AirQuality::CLI
             puts "Okay, thanks for coming! Bye!"
             puts ""
             exit
+        elsif input.downcase == "help"
+            puts ""
+            puts "***"
+            puts ""
+            puts Rainbow("Info about Air Quality").bright
+            puts ""
+            puts "The air quality data is from IQAir (https://www.iqair.com/air-pollution-data-api) and is categorized by AQI."
+            puts "The Air Quality Index (AQI) estimates how clean and healthy air is, based on the following scale:"
+            puts ""
+            puts Rainbow("AQI 0-50: Good").green
+            puts Rainbow("AQI 51-100: Moderate").yellow
+            puts Rainbow("AQI 101-150: Unhealthy for sensitive groups").orange
+            puts Rainbow("AQI 151-200: Unhealthy").red
+            puts Rainbow("AQI 201-300: Very Unhealthy").purple
+            puts Rainbow("AQI 301+: Hazardous").maroon
+            puts ""
+            puts Rainbow("Info about User Inputs").bright
+            puts ""
+            puts "You can always type 'exit' to exit. Otherwise, provide a city and state where prompted to learn more about the air quality in that region."
+            puts ""
+            puts "***"
+            puts ""
+            start
         else
             AirQuality::State.check_abbreviation(input)
         end
@@ -38,7 +61,7 @@ class AirQuality::CLI
 
     def pull_data
         puts "What state would you like to view (e.g., Arizona)?"
-        puts "You can also type 'exit' to exit."
+        puts "You can also type 'exit' to exit or 'help' for more info."
         puts ""
 
         input = user_input 
@@ -61,8 +84,6 @@ class AirQuality::CLI
         puts ""
         counter = 1
         AirQuality::City.find_cities_by_state(input).each do |city|
-            # color = counter % 2 == 0 ? :ghostwhite : :cyan
-            # puts Rainbow("#{counter}. #{city.name}").color(color)
             if counter % 2 == 0
                 puts Rainbow("#{counter}. #{city.name}").inverse 
             else 
@@ -125,7 +146,7 @@ class AirQuality::CLI
             puts Rainbow("The pollution level is #{value}.").color(color)
             puts Rainbow("This level is considered #{concern_level}.").color(color)
             puts Rainbow("#{detail}").color(color)
-            puts Rainbow("You can read more about air pollution at https://www.airnow.gov/.").color(color)
+            puts Rainbow("You can read more about air pollution at https://www.airnow.gov/, or type 'help' for more info.").color(color)
             puts Rainbow("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~").color(color)
             puts ""
         else
