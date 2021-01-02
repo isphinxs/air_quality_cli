@@ -38,7 +38,7 @@ class AirQuality::CLI
             puts ""
             start
         else
-            AirQuality::State.check_abbreviation(input)
+            AirQuality::State.check_case_and_abbreviation(input)
         end
     end
 

@@ -26,7 +26,7 @@ class AirQuality::State
         self.find_state(state) ? true : false
     end
 
-    def self.check_abbreviation(state)
+    def self.check_case_and_abbreviation(state)
         states = {
             "AK" => "Alaska",
             "AL" => "Alabama",
@@ -84,6 +84,6 @@ class AirQuality::State
             "WV" => "West Virginia",
             "WY" => "Wyoming"
         }
-        states[state.upcase] ? states[state.upcase] : state
+        states[state.upcase] ? states[state.upcase] : state.downcase.capitalize
     end
 end
