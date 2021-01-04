@@ -4,6 +4,15 @@ This is a CLI application that shows the air quality of a given city and state. 
 
 The CLI app uses the [dotenv](https://github.com/bkeepers/dotenv) gem to safeguard the API key. Replace "ENV[AQI_API_Key]" in the API call with your own key from IQAir to make this app work locally.
 
+## Installation
+
+Clone this repo and run:
+
+    $ cd air_quality_cli
+    $ bundle install
+
+Run `bin/run` to start the app, or `bin/console` to experiment.
+
 ## Usage
 
 Users can provide a state and select from cities with available air quality data in the US. They can also view more information about air quality levels.
