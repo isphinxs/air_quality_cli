@@ -28,6 +28,7 @@ class AirQuality::City
 
     def self.find_city(name)
         name = self.city_by_number(name)
+        name = self.check_case(name)
         self.all.detect {|city| city.name == name}
     end
 
@@ -52,5 +53,15 @@ class AirQuality::City
             number = self.current_city_list[number.to_i - 1]
         end
         number
+    end
+
+    def self.check_case(city)
+        if city.include?(" ") 
+            city.split(" ").collect {|word| word.capitalize}.join(" ")
+        elsif city.include?("-")
+            city.split("-").collect {|word| word.capitalize}.join("-")
+        else
+            city.capitalize
+        end
     end
 end
