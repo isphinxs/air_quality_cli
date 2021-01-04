@@ -37,7 +37,7 @@ class AirQuality::CLI
             puts ""
             start
         else
-            AirQuality::State.check_case_and_abbreviation(input)
+            input
         end
     end
 
@@ -70,8 +70,10 @@ class AirQuality::CLI
         puts ""
 
         input = user_input 
+        input = AirQuality::State.check_case_and_abbreviation(input)
         while !check_state(input)
             input = user_input
+            input = AirQuality::State.check_case_and_abbreviation(input)
         end
         puts ""
 
@@ -102,10 +104,11 @@ class AirQuality::CLI
         puts ""
         
         input = user_input
+        input = AirQuality::City.find_city_name(input)
         while !check_city(input)
             input = user_input
         end
-        input = AirQuality::City.city_by_number(input)
+        input = AirQuality::City.find_city_name(input)
         puts ""
         
         print_air_quality(input)

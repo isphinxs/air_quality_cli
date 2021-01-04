@@ -85,7 +85,10 @@ class AirQuality::State
             "WY" => "Wyoming"
         }
 
-        state_formatted = state.split(" ").collect {|word| word.capitalize}.join(" ")
-        states[state.upcase] ? states[state.upcase] : state_formatted
+        if states[state.upcase]
+            states[state.upcase]
+        else 
+            state.split(" ").collect {|word| word.capitalize}.join(" ")
+        end
     end
 end

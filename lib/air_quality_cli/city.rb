@@ -26,9 +26,15 @@ class AirQuality::City
         @main_pollutant = main_pollutant
     end
 
+    def self.find_city_name(input)
+        if input.to_i > 0
+            self.city_by_number(input.to_i)
+        else 
+            self.check_case(input)
+        end
+    end
+
     def self.find_city(name)
-        name = self.city_by_number(name)
-        name = self.check_case(name)
         self.all.detect {|city| city.name == name}
     end
 
@@ -37,7 +43,7 @@ class AirQuality::City
     end
 
     def self.city_valid?(city)
-        self.find_city(city) ? true : false
+        self.find_city_name(city) ? true : false
     end
 
     def self.current_city_list
@@ -49,16 +55,13 @@ class AirQuality::City
     end
 
     def self.city_by_number(number)
-        if number.to_i > 0
-            number = self.current_city_list[number.to_i - 1]
-        end
-        number
+            self.current_city_list[number.to_i - 1]
     end
 
     def self.check_case(city)
-        if city.include?(" ") 
+        if city.split(" ").length > 1 
             city.split(" ").collect {|word| word.capitalize}.join(" ")
-        elsif city.include?("-")
+        elsif city.split("-").length > 1
             city.split("-").collect {|word| word.capitalize}.join("-")
         else
             city.capitalize
