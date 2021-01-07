@@ -41,6 +41,16 @@ class AirQuality::CLI
         end
     end
 
+    def user_input_city
+        input = user_input
+        input = AirQuality::City.find_city_name(input)
+        while !check_city(input)
+            input = user_input
+            input = AirQuality::City.find_city_name(input)
+        end
+        input
+    end
+
     def start
         if AirQuality::State.all.length < 1
             if AirQuality::API.get_states == "Error"
@@ -103,14 +113,9 @@ class AirQuality::CLI
         end
         puts ""
         
-        input = user_input
-        input = AirQuality::City.find_city_name(input)
-        while !check_city(input)
-            input = user_input
-        end
-        input = AirQuality::City.find_city_name(input)
+        input = user_input_city
         puts ""
-        
+
         print_air_quality(input)
     end
 
@@ -164,10 +169,7 @@ class AirQuality::CLI
             puts "Please choose another city."
             puts ""
 
-            input = user_input
-            while !check_city(input)
-                input = user_input
-            end
+            input = user_input_city
             puts ""
             
             print_air_quality(input)
