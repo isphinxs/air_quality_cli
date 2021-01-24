@@ -36,6 +36,8 @@ class AirQuality::CLI
             puts "***"
             puts ""
             start
+        elsif input.downcase == "list"
+            list
         else
             input
         end
@@ -75,8 +77,10 @@ class AirQuality::CLI
     end
 
     def pull_data
+        puts Rainbow("Main Menu").underline
+        puts ""
         puts "What state would you like to view (e.g., Arizona)?"
-        puts "You can also type 'exit' to exit or 'help' for more info."
+        puts "You can also type 'exit' to exit, 'list' to examine results, or 'help' for more info."
         puts ""
 
         input = user_input 
@@ -160,13 +164,13 @@ class AirQuality::CLI
 
             puts "Awesome! Here is the air quality data for #{input}:"
             puts ""
-            puts Rainbow("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~").color(color)
+            puts Rainbow("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~").color(color)
             puts Rainbow("The main pollutant is #{pollutant}.").color(color)
             puts Rainbow("The pollution level is #{value}.").color(color)
             puts Rainbow("This level is considered #{concern_level}.").color(color)
             puts Rainbow("#{detail}").color(color)
             puts Rainbow("You can read more about air pollution at https://www.airnow.gov/, or type 'help' for more info.").color(color)
-            puts Rainbow("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~").color(color)
+            puts Rainbow("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~").color(color)
             puts ""
         else
             puts "I'm sorry, data isn't available for that city!"
@@ -231,4 +235,24 @@ class AirQuality::CLI
         start
     end
 
+    def list
+        puts ""
+        puts "You can see a list of all cities from the current session with a given air quality level. Please enter a level:"
+        puts "" 
+        input = user_input
+        until input.to_i >= 0
+            puts ""
+            puts "I'm sorry, I need a whole number equal to 0 or greater. Please try again."
+            puts ""
+            input = user_input
+        end
+        puts ""
+        if !AirQuality::City.cities_by_pollution_level(input.to_i)
+            puts ""
+            puts "I'm sorry, there are no cities in the current session with that value."
+            puts ""
+        end
+        puts ""
+        start
+    end
 end

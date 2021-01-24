@@ -5,9 +5,6 @@ class AirQuality::City
     @@all = []
     @@current_city_list = []
 
-    # make a method that returns all cities of a pollution level 50
-    # have it show up in console
-
     def initialize(name, state)
         @name = name 
         @state = state
@@ -27,6 +24,17 @@ class AirQuality::City
     def add_data(aqi_value, main_pollutant)
         @aqi_value = aqi_value
         @main_pollutant = main_pollutant
+    end
+
+    def self.cities_by_pollution_level(level)
+        cities = self.all.select{|city| city.aqi_value == level}
+        if cities.length > 0
+            puts "Here are the cities with a pollution level of #{level}:"
+            puts ""
+            cities.each.with_index(1) {|city, index| puts "#{index}. #{city.name}, #{city.state.state_name} - #{city.aqi_value}"}
+        else
+            nil
+        end
     end
 
     def self.find_city_name(input)
