@@ -43,6 +43,7 @@ class AirQuality::API
         
         begin 
           response = RestClient.get(url)
+        #   puts "Scraped"
         rescue
             aqi_value = nil
             main_pollutant = nil

@@ -5,6 +5,9 @@ class AirQuality::City
     @@all = []
     @@current_city_list = []
 
+    # make a method that returns all cities of a pollution level 50
+    # have it show up in console
+
     def initialize(name, state)
         @name = name 
         @state = state
@@ -27,9 +30,13 @@ class AirQuality::City
     end
 
     def self.find_city_name(input)
-        if input.to_i > 0
+        if input == false 
+            false
+        elsif input.to_i > 0
             self.city_by_number(input.to_i)
-        else 
+        elsif input.to_i < 0
+            false
+        else
             self.check_case(input)
         end
     end

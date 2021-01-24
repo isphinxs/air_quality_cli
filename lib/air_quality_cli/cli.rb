@@ -144,7 +144,11 @@ class AirQuality::CLI
     end
 
     def print_air_quality(input)
-        city_object = AirQuality::API.get_city_air_quality(input)
+        if AirQuality::City.find_city(input).aqi_value
+            city_object = AirQuality::City.find_city(input)
+        else
+            city_object = AirQuality::API.get_city_air_quality(input)
+        end
         pollutant = main_pollutant(city_object)
         pollution_level = pollution_level(city_object)
 
